@@ -181,6 +181,7 @@ function getCityInfo(city) {
     });
 }
 
+getCityInfo(currentCity);
 navigator.geolocation.getCurrentPosition(getCurrentCity);
 navigator.geolocation.getCurrentPosition(getCurrentPositionInfo);
 
