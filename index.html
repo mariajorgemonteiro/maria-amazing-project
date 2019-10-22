@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Weather App by Maria Jorge Monteiro</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="src/styles.css" rel="stylesheet" type="text/css" />
+    <link href="icomoon/style.css" rel="stylesheet" type="text/css"/>
+	<script src="https://kit.fontawesome.com/4a847d5e5a.js" crossorigin="anonymous"></script>
+	<script
+	type="text/javascript"
+	src="https://unpkg.com/axios/dist/axios.min.js"
+></script>
+</head>
+<body>
+	<div class="cointainer weather-app">
+		<div class="row justify-content-start">
+			<div class="col-7">
+				<h1 id="city-name"></h1>
+				<!--<h6>updated 5 mins ago</h6>-->
+			</div>
+			<div class="col-5">
+				<div class="row px-4 justify-content-end">
+					<div class="nested col-2 px-4">
+						<span class="align-middle icons" id="current-location">
+							<a class="fas fa-map-marker-alt" alt="Current location"></a>
+						</span>
+					</div>
+					<div class="nested col-2 px-4 dropdown">
+						<span class="align-middle icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"">
+							<a class="fas fa-search-location " alt="Search location"></a>
+						</span>
+						<div class="dropdown-menu dropdown-menu-right">			
+							<form class="form-inline px-3 py-1 search-option" id="search-form">
+								<input type="search" class="form-control ml-3 w-90" id="search-input" placeholder="Search..." aria-label="Search">
+									<div class="invalid-tooltip">City not found</div>
+								<button type="submit" class="btn"> <i class="fas fa-search" aria-hidden="true"></i> </button>
+							</form>					
+							<div id="menuItems"></div>
+						</div>
+					</div>
+					<!--<div class="col-1 px-4">
+						<span class="align-middle icons">
+							<a class="fas fa-star" alt="Favourite location"></a>
+						</span>
+					</div>  -->
+				</div>				
+			</div>
+		</div>
+
+
+		<div class="row current-date">
+			 <h2 id="today-date">  </h2>
+		</div>
+		<div class="row align-center text-center current-data-info">
+				<div class="col-5">
+					<div class="row">
+						<div class="col icon-today">
+								<!--<span class="icon-rain9"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>-->
+								<!--<i class="fas fa-cloud-rain"></i>-->
+						</div>
+						<div class="col" style="min-width: 125px">
+							<div class="today-temp">
+								<h3 class="current-today"> <a id="today-temp">-</a><a id="temp-variable">ºC</a></h3>
+								<h5 class="min-max-today"> <a id="today-max-temp">-</a><a id="temp-variable">ºC </a> / <a id="today-min-temp">-</a><a id="temp-variable">ºC</a></h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-2">
+					<div class="line-change-values">
+						<button type="button" class="btn btn-link btn-change-values" >
+							<h3 id="temp-variable-link">ºF</h3>
+						</button>
+					</div>
+				</div>
+				<div class="col-5" style="min-width: 125px">
+					<div class="weather-more-info">
+						<p class="weather-more-info-text"> Humidity: <a id="humidity">-</a>%</p>
+						<p class="weather-more-info-text">Wind: <a id="wind-speed">-</a> km/h</p>
+						<p class="weather-more-info-text">Clouds: <a id="clouds">-</a>%</p>
+					</div>
+				</div>
+		</div>
+		
+		<div class="row justify-content-around next-days-forecast">
+      		<div class="col-md first-day">
+        		<div class="card forecast-data">
+					<div class="card-body forecast-box">
+           				 <h4 class="card-title next-days" id="day-one"> </h4>
+           				<div class="card-text text-center">
+							<span class="icon-forecast" id="day-one-icon"> <!--<i class="fas fa-cloud-rain"></i>-->
+								<span class="icon-rain9"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+							</span>
+							<p class="max-forecast"><a id="max-day-one">20</a><a id="temp-variable">ºC</a> </p>
+							<p class="min-forecast"><a id="min-day-one">13</a><a id="temp-variable">ºC</a></p>
+						</div>
+          			</div>
+				</div>
+	    	</div>
+			<div class="col-md second-day">
+       			 <div class="card forecast-data">
+					<div class="card-body forecast-box">
+           				 <h4 class="card-title next-days" id="day-two"> </h4>
+            			<div class="card-text text-center">
+							<span class="icon-forecast" id="day-two-icon"> <!--<i class="fas fa-cloud-sun-rain"></i>-->
+								<span class="icon-rain1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+							</span>
+							<p class="max-forecast"><a id="max-day-two">20</a><a id="temp-variable">ºC</a></p>
+							<p class="min-forecast"><a id="min-day-two">16</a><a id="temp-variable">ºC</a></p>
+						</div>
+         			</div>
+				</div>
+			</div>
+			<div class="col-md third-day" >
+				<div class="card forecast-data">
+					<div class="card-body forecast-box">
+						<h4 class="card-title next-days" id="day-three"> </h4>
+						<div class="card-text text-center">
+							<span class="icon-forecast" id="day-three-icon"> <!--<i class="fas fa-cloud-sun"></i>-->
+								<span class="icon-day"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+							</span>
+							<p class="max-forecast"><a id="max-day-three">21</a><a id="temp-variable">ºC</a></p>
+							<p class="min-forecast"><a id="min-day-three">15</a><a id="temp-variable">ºC</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md fourth-day">
+				<div class="card forecast-data">
+					<div class="card-body forecast-box">
+						<h4 class="card-title next-days" id="day-four"> </h4>
+						<div class="card-text text-center">
+							<span class="icon-forecast" id="day-four-icon"> <!--<i class="fas fa-cloud"></i> -->
+								<span class="icon-cloudy1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>	
+							</span>
+							<p class="max-forecast"><a id="max-day-four">20</a><a id="temp-variable">ºC</a></p>
+							<p class="min-forecast"><a id="min-day-four">16</a><a id="temp-variable">ºC</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md fifth-day">
+				<div class="card forecast-data">
+					<div class="card-body forecast-box">
+						<h4 class="card-title next-days" id="day-five"> </h4>
+						<div class="card-text text-center">
+							<span class="icon-forecast" id="day-five-icon"> <!--<i class="fas fa-sun"></i>-->
+								<span class="icon-sun1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span>
+							</span>
+							<p class="max-forecast"><a id="max-day-five">23</a><a id="temp-variable">ºC</a></p>
+							<p class="min-forecast"><a id="min-day-five">18</a><a id="temp-variable">ºC</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="app-bottom">
+			<footer>
+				<div> Design and coded by 👩‍💻 <a href="https://www.linkedin.com/in/mariajorgemonteiro/" target="_blank" title="Copyright"> Maria Jorge Monteiro</a></div> 
+				<div>Icons made by
+				<a href="https://www.flaticon.com/authors/bqlqn" target="_blank" title="bqlqn">bqlqn</a>
+					from 
+						<a href="https://www.flaticon.com/" target="_blank" title="Flaticon">www.flaticon.com</a>
+				</div>
+			</footer>
+
+		</div>
+	</div>
+
+	<script src="src/index.js">	</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

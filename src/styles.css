@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css?family=Muli|Open+Sans|Roboto&display=swap");
+
+body {
+  font-family: "Muli", sans-serif;
+  color: rgb(50, 68, 87);
+}
+
+h1,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+
+.weather-app {
+  border: 3px solid rgb(0, 136, 102);
+  border-radius: 15px;
+  margin: 75px auto;
+  padding: 30px 30px;
+  max-width: 800px;
+  background-image: linear-gradient(
+    130deg,
+    rgba(132, 250, 175, 60%),
+    rgba(143, 211, 244, 60%) 100%
+  );
+}
+
+.icon-current-location {
+  font-size: 25px;
+  color: rgb(241, 45, 45);
+  text-shadow: darkgrey 2px 2px;
+}
+.icons {
+  font-size: 42px;
+  color: rgb(0, 136, 102);
+  text-shadow: darkgrey 1px 1px;
+}
+
+.icons:hover {
+  color: #ff7e67;
+  text-shadow: darkgrey 1px 1px;
+}
+
+.current-date {
+  margin: 25px auto;
+}
+
+.current-data-info {
+  margin-bottom: 25px;
+}
+
+.icon-today {
+  font-size: 86px;
+}
+
+.today-temp {
+  -webkit-transform: translateY(25%);
+  -ms-transform: translateY(25%);
+  transform: translateY(25%);
+}
+.line-change-values {
+  border-left: 3px solid #35495e;
+  height: 100%;
+}
+
+.btn-change-values {
+  position: absolute;
+  bottom: -15px;
+  left: 20px;
+}
+
+.weather-more-info {
+  margin: 0px auto;
+  float: none;
+  display: table;
+}
+
+.weather-more-info-text {
+  margin: 2px 0px;
+}
+
+.next-days-forecast {
+  margin-bottom: 35px;
+}
+
+.forecast-data {
+  border-radius: 30px;
+  border: 2px solid #e0e0ec;
+  background-image: linear-gradient(
+    to top,
+    lightgrey 0%,
+    lightgrey 1%,
+    rgb(224, 224, 224) 26%,
+    rgb(239, 239, 239) 48%,
+    rgb(217, 217, 217) 75%,
+    rgb(188, 188, 188) 100%
+  );
+  box-shadow: 6px 6px 2px 1px rgba(34, 138, 94, 0.3);
+}
+
+.forecast-box {
+  text-align: center;
+}
+
+.next-days {
+  font-size: 20px;
+}
+
+.icon-forecast {
+  font-size: 34px;
+}
+
+.max-forecast {
+  font-size: 18px;
+  margin-top: 14px;
+  margin-bottom: 1px;
+}
+
+.min-forecast {
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.app-bottom {
+  text-align: right;
+}
+
+.search-option {
+  flex-flow: inherit;
+}
