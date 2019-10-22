@@ -197,7 +197,12 @@ function getWeekDay(date) {
 }
 
 let now = new Date();
-document.getElementById("today-date").innerHTML = `Today | ${getWeekDay(now)} - ${now.getMonth() + 1}/${now.getDate()} @ ${now.toLocaleTimeString(navigator.language,  { hour: "2-digit", minute: "2-digit" })}`;
+document.getElementById("today-date").innerHTML = `Today | ${getWeekDay(
+  now
+)} - ${now.getMonth() + 1}/${now.getDate()} @ ${now.toLocaleTimeString(
+  navigator.language,
+  { hour: "2-digit", minute: "2-digit" }
+)}`;
 
 function getForecastDay(date) {
   return ` ${getWeekDay(date)} <br />  ${date.getMonth() +
@@ -266,6 +271,10 @@ function keyPressed(k) {
 
 let element = document.getElementById("search-input");
 element.addEventListener("keyup", keyPressed);
+element.addEventListener("click", function() {
+  removeClassOnId("search-input", "is-invalid");
+  removeClassOnId("search-input", "is-valid");
+});
 
 ///////////////////////
 // Get Current Location
