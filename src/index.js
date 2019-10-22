@@ -3,7 +3,7 @@
 ///////////////////////
 let appKey = "741f7b1dd1f8484e0339dca253a4a8bc";
 let currentCitySymbol = `<span class="align-middle icon-current-location"><a class="fas fa-map-marker-alt" alt="Current location"></a> </span>`;
-let currentCity = "";
+let currentCity = "Lisboa";
 
 // 01d or 01n -- clear sky
 let icon_sunny = `<span class="icon-sun1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span>`;
