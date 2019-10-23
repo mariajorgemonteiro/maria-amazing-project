@@ -81,12 +81,11 @@ function getWeekDay(date) {
   return weekdays[day];
 }
 
-let now = new Date();
+let today = new Date();
 document.getElementById("today-date").innerHTML = `Today | ${getWeekDay(
-  now
-)} - ${now.getMonth() + 1}/${now.getDate()} @ ${now.toLocaleTimeString(
-  navigator.language,
-  { hour: "2-digit", minute: "2-digit" }
+  today
+)} - ${today.getMonth() + 1}/${today.getDate()} @ ${today.toLocaleTimeString(
+  navigator.language,{ hour: "2-digit", minute: "2-digit" }
 )}`;
 
 function getForecastDay(date) {
@@ -95,7 +94,7 @@ function getForecastDay(date) {
 }
 
 let day1 = new Date();
-day1.setDate(now.getDate() + 1);
+day1.setDate(today.getDate() + 1);
 day1.setHours(0, 0, 0, 0);
 document.getElementById("day-one").innerHTML = `${getForecastDay(day1)}`;
 let day2 = new Date();
@@ -173,6 +172,7 @@ function displayCurrentLocationInfo(response) {
   info = response.data;
   let city = document.getElementById("city-name");
   city.innerHTML = `${info.name}, ${info.sys.country} ${currentCitySymbol}`;
+  currentCity = info.name;
   todayInfo(info);
 }
 
@@ -183,7 +183,8 @@ function displaySearchedCityInfo(response) {
   let info = new Object();
   info = response.data;
   let city = document.getElementById("city-name");
-  city.innerHTML = `${response.data.name}, ${response.data.sys.country}`;
+  city.innerHTML = `${info.name}, ${info.sys.country}`;
+  currentCity = info.name;
   todayInfo(info);
 }
 
@@ -327,58 +328,32 @@ function convertVariable(element) {
   let newMaxDayFive = document.getElementById("max-day-five");
   let newMinDayFive = document.getElementById("min-day-five");
 
-  if (variable.innerHTML.trim() === "ºC") {
-    newTodayTemp.innerHTML = convertToCelsius(newTodayTemp.innerHTML);
-    newTodayMaxTemp.innerHTML = convertToCelsius(newTodayMaxTemp.innerHTML);
-    newTodayMinTemp.innerHTML = convertToCelsius(newTodayMinTemp.innerHTML);
-    newMaxDayOne.innerHTML = convertToCelsius(newMaxDayOne.innerHTML);
-    newMinDayOne.innerHTML = convertToCelsius(newMinDayOne.innerHTML);
-    newMaxDayTwo.innerHTML = convertToCelsius(newMaxDayTwo.innerHTML);
-    newMinDayTwo.innerHTML = convertToCelsius(newMinDayTwo.innerHTML);
-    newMaxDayThree.innerHTML = convertToCelsius(newMaxDayThree.innerHTML);
-    newMinDayThree.innerHTML = convertToCelsius(newMinDayThree.innerHTML);
-    newMaxDayFour.innerHTML = convertToCelsius(newMaxDayFour.innerHTML);
-    newMinDayFour.innerHTML = convertToCelsius(newMinDayFour.innerHTML);
-    newMaxDayFive.innerHTML = convertToCelsius(newMaxDayFive.innerHTML);
-    newMinDayFive.innerHTML = convertToCelsius(newMinDayFive.innerHTML);
+    newTodayTemp.innerHTML = convert(newTodayTemp.innerHTML);
+    newTodayMaxTemp.innerHTML = convert(newTodayMaxTemp.innerHTML);
+    newTodayMinTemp.innerHTML = convert(newTodayMinTemp.innerHTML);
+    newMaxDayOne.innerHTML = convert(newMaxDayOne.innerHTML);
+    newMinDayOne.innerHTML = convert(newMinDayOne.innerHTML);
+    newMaxDayTwo.innerHTML = convert(newMaxDayTwo.innerHTML);
+    newMinDayTwo.innerHTML = convert(newMinDayTwo.innerHTML);
+    newMaxDayThree.innerHTML = convert(newMaxDayThree.innerHTML);
+    newMinDayThree.innerHTML = convert(newMinDayThree.innerHTML);
+    newMaxDayFour.innerHTML = convert(newMaxDayFour.innerHTML);
+    newMinDayFour.innerHTML = convert(newMinDayFour.innerHTML);
+    newMaxDayFive.innerHTML = convert(newMaxDayFive.innerHTML);
+    newMinDayFive.innerHTML = convert(newMinDayFive.innerHTML);
 
-    for (i = 0; i < changedVariable.length; ++i) {
-      changedVariable[i].innerHTML = "ºC";
-    }
-
-    variable.innerHTML = "ºF";
-  } else if (variable.innerHTML === "ºF") {
-    newTodayTemp.innerHTML = convertToFahrenheit(newTodayTemp.innerHTML);
-    newTodayMaxTemp.innerHTML = convertToFahrenheit(newTodayMaxTemp.innerHTML);
-    newTodayMinTemp.innerHTML = convertToFahrenheit(newTodayMinTemp.innerHTML);
-    newMaxDayOne.innerHTML = convertToFahrenheit(newMaxDayOne.innerHTML);
-    newMinDayOne.innerHTML = convertToFahrenheit(newMinDayOne.innerHTML);
-    newMaxDayTwo.innerHTML = convertToFahrenheit(newMaxDayTwo.innerHTML);
-    newMinDayTwo.innerHTML = convertToFahrenheit(newMinDayTwo.innerHTML);
-    newMaxDayThree.innerHTML = convertToFahrenheit(newMaxDayThree.innerHTML);
-    newMinDayThree.innerHTML = convertToFahrenheit(newMinDayThree.innerHTML);
-    newMaxDayFour.innerHTML = convertToFahrenheit(newMaxDayFour.innerHTML);
-    newMinDayFour.innerHTML = convertToFahrenheit(newMinDayFour.innerHTML);
-    newMaxDayFive.innerHTML = convertToFahrenheit(newMaxDayFive.innerHTML);
-    newMinDayFive.innerHTML = convertToFahrenheit(newMinDayFive.innerHTML);
-
-    for (i = 0; i < changedVariable.length; ++i) {
-      changedVariable[i].innerHTML = "ºF";
-    }
-
-    variable.innerHTML = "ºC";
+  for (i = 0; i < changedVariable.length; ++i) {
+    changedVariable[i].innerHTML = variable.innerHTML;
   }
+  variable.innerHTML = variable.innerHTML === "ºF"? "ºC" : "ºF";
 }
 
-function convertToCelsius(fahrenheit) {
-  let celsius = ((fahrenheit - 32) * 5) / 9;
-  return Math.round(celsius, 1);
+function convert(temperature) {
+  let variable = document.getElementById("temp-variable-link");
+  let finalTemperature = variable.innerHTML === "ºF"? (temperature * 9) / 5 + 32 : ((temperature - 32) * 5) / 9 ; 
+  return Math.round(finalTemperature, 1);
 }
 
-function convertToFahrenheit(celsius) {
-  let fahrenheit = (celsius * 9) / 5 + 32;
-  return Math.round(fahrenheit, 1);
-}
 
 let variableLink = document.getElementById("temp-variable-link");
 variableLink.addEventListener("click", convertVariable);
@@ -395,3 +370,16 @@ variableLink.addEventListener("click", convertVariable);
   );
 })();
 */
+
+function updateData(c) {
+  getCityInfo(currentCity);
+}
+
+setInterval(updateData(currentCity), 900000);
+
+setInterval(function () {
+  let time = document.getElementById("update_time");
+  let dateNow = new Date();
+  let diffTime = Math.round(((dateNow.getTime() - today.getTime())/1000)/60);
+  time.innerHTML = `${diffTime}`;
+}, 1000);

@@ -20,7 +20,7 @@
 		<div class="row justify-content-start">
 			<div class="col-7">
 				<h1 id="city-name"></h1>
-				<!--<h6>updated 5 mins ago</h6>-->
+				<h6>updated <a id="update_time">0</a> min ago</h6>
 			</div>
 			<div class="col-5">
 				<div class="row px-4 justify-content-end">
@@ -35,7 +35,7 @@
 						</span>
 						<div class="dropdown-menu dropdown-menu-right">			
 							<form class="form-inline px-3 py-1 search-option" id="search-form">
-								<input type="search" class="form-control ml-3 w-90" id="search-input" placeholder="Search..." aria-label="Search">
+								<input type="search" class="form-control ml-3 w-90" id="search-input" placeholder="Search..." aria-label="Search" autocomplete="off">
 									<div class="invalid-tooltip">City not found</div>
 								<button type="submit" class="btn"> <i class="fas fa-search" aria-hidden="true"></i> </button>
 							</form>					
