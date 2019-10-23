@@ -31,93 +31,6 @@ let icon_mist = `<span class="icon-fog"><span class="path1"></span><span class="
 // rainbow
 let icon_rainbow = `<span class="icon-rainbow"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span></span>`;
 
-function getUrlLatLong(latitude, longitude) {
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appKey}&units=metric`;
-  return url;
-}
-
-function getUrlCity(city) {
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appKey}&units=metric`;
-  //console.log(url);
-  return url;
-}
-
-function removeClassOnId(elementId, className) {
-  let element = document.getElementById(elementId);
-  element.classList.remove(className);
-}
-
-function addClassOnId(elementId, className) {
-  let element = document.getElementById(elementId);
-  element.classList.add(className);
-}
-
-function displayCurrentLocationInfo(response) {
-  let city = document.getElementById("city-name");
-  let todayTemp = document.getElementById("today-temp");
-  let todayMaxTemp = document.getElementById("today-max-temp");
-  let todayMinTemp = document.getElementById("today-min-temp");
-  let humidity = document.getElementById("humidity");
-  let windSpeed = document.getElementById("wind-speed");
-  let clouds = document.getElementById("clouds");
-  let icon = document.getElementsByClassName("icon-today");
-
-  console.log(response.data);
-  city.innerHTML = `${response.data.name}, ${response.data.sys.country} ${currentCitySymbol}`;
-  todayTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
-  todayMinTemp.innerHTML = `${Math.round(response.data.main.temp_min)}`;
-  todayMaxTemp.innerHTML = `${Math.round(response.data.main.temp_max)}`;
-  humidity.innerHTML = `${response.data.main.humidity}`;
-  windSpeed.innerHTML = `${response.data.wind.speed}`;
-  clouds.innerHTML = `${response.data.clouds.all}`;
-  icon[0].innerHTML = getIcon(response.data.weather[0].icon);
-}
-
-function displaySearchedCityInfo(response) {
-  addClassOnId("search-input", "is-valid");
-
-  let city = document.getElementById("city-name");
-  let todayTemp = document.getElementById("today-temp");
-  let todayMaxTemp = document.getElementById("today-max-temp");
-  let todayMinTemp = document.getElementById("today-min-temp");
-  let humidity = document.getElementById("humidity");
-  let windSpeed = document.getElementById("wind-speed");
-  let clouds = document.getElementById("clouds");
-  let icon = document.getElementsByClassName("icon-today");
-
-  //console.log(response);
-  city.innerHTML = `${response.data.name}, ${response.data.sys.country}`;
-  todayTemp.innerHTML = `${Math.round(response.data.main.temp)}`;
-  todayMinTemp.innerHTML = `${Math.round(response.data.main.temp_min)}`;
-  todayMaxTemp.innerHTML = `${Math.round(response.data.main.temp_max)}`;
-  humidity.innerHTML = `${response.data.main.humidity}`;
-  windSpeed.innerHTML = `${response.data.wind.speed}`;
-  clouds.innerHTML = `${response.data.clouds.all}`;
-  icon[0].innerHTML = getIcon(response.data.weather[0].icon);
-}
-
-function getCurrentPositionInfo(position) {
-  let urlCurrentLocation = getUrlLatLong(
-    position.coords.latitude,
-    position.coords.longitude
-  );
-  //console.log(urlCurrentLocation);
-  axios.get(urlCurrentLocation).then(displayCurrentLocationInfo);
-}
-
-function getCity(url) {
-  axios.get(url).then(function(response) {
-    currentCity = [response.data.name, response.data.sys.country];
-  });
-}
-
-function getCurrentCity(position) {
-  let urlCurrentLocation = getUrlLatLong(
-    position.coords.latitude,
-    position.coords.longitude
-  );
-  getCity(urlCurrentLocation);
-}
 
 function getIcon(iconId) {
   let icon = "";
@@ -156,35 +69,6 @@ function getIcon(iconId) {
   return icon;
 }
 
-function getCityInfo(city) {
-  let urlSearchCity = getUrlCity(city);
-  axios
-    .get(urlSearchCity)
-    .then(displaySearchedCityInfo)
-    .catch(function(error) {
-      // handle error
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        addClassOnId("search-input", "is-invalid");
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log("Error", error.message);
-      }
-      //console.log(error.config);
-    });
-}
-
-getCityInfo(currentCity);
-navigator.geolocation.getCurrentPosition(getCurrentCity);
-navigator.geolocation.getCurrentPosition(getCurrentPositionInfo);
-
 ///////////////////////
 // Update Dates
 ///////////////////////
@@ -212,19 +96,158 @@ function getForecastDay(date) {
 
 let day1 = new Date();
 day1.setDate(now.getDate() + 1);
+day1.setHours(0, 0, 0, 0);
 document.getElementById("day-one").innerHTML = `${getForecastDay(day1)}`;
 let day2 = new Date();
 day2.setDate(day2.getDate() + 2);
+day2.setHours(0, 0, 0, 0);
 document.getElementById("day-two").innerHTML = `${getForecastDay(day2)}`;
 let day3 = new Date();
 day3.setDate(day3.getDate() + 3);
+day3.setHours(0, 0, 0, 0);
 document.getElementById("day-three").innerHTML = `${getForecastDay(day3)}`;
 let day4 = new Date();
 day4.setDate(day4.getDate() + 4);
+day4.setHours(0, 0, 0, 0);
 document.getElementById("day-four").innerHTML = `${getForecastDay(day4)}`;
 let day5 = new Date();
 day5.setDate(day5.getDate() + 5);
+day5.setHours(0, 0, 0, 0);
 document.getElementById("day-five").innerHTML = `${getForecastDay(day5)}`;
+
+days = [day1, day2, day3, day4, day5];
+
+
+function getTodayUrlLatLong(latitude, longitude) {
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appKey}&units=metric`;
+  return url;
+}
+
+function getForecastUrlLatLong(latitude, longitude) {
+  let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${appKey}&units=metric`;
+  return url;
+}
+
+function getTodayUrlCity(city) {
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appKey}&units=metric`;
+  //console.log(url);
+  return url;
+}
+
+function getForecastUrlCity(city) {
+  let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appKey}&units=metric`;
+  //console.log(url);
+  return url;
+}
+
+function removeClassOnId(elementId, className) {
+  let element = document.getElementById(elementId);
+  element.classList.remove(className);
+}
+
+function addClassOnId(elementId, className) {
+  let element = document.getElementById(elementId);
+  element.classList.add(className);
+}
+
+function todayInfo(info) {
+  let todayTemp = document.getElementById("today-temp");
+  let todayMaxTemp = document.getElementById("today-max-temp");
+  let todayMinTemp = document.getElementById("today-min-temp");
+  let humidity = document.getElementById("humidity");
+  let windSpeed = document.getElementById("wind-speed");
+  let clouds = document.getElementById("clouds");
+  let icon = document.getElementsByClassName("icon-today");
+
+  todayTemp.innerHTML = `${Math.round(info.main.temp)}`;
+  todayMinTemp.innerHTML = `${Math.round(info.main.temp_min)}`;
+  todayMaxTemp.innerHTML = `${Math.round(info.main.temp_max)}`;
+  humidity.innerHTML = `${info.main.humidity}`;
+  windSpeed.innerHTML = `${info.wind.speed}`;
+  clouds.innerHTML = `${info.clouds.all}`;
+  icon[0].innerHTML = getIcon(info.weather[0].icon);
+}
+
+function displayCurrentLocationInfo(response) {
+  let info = new Object();
+  info = response.data;
+  let city = document.getElementById("city-name");
+  city.innerHTML = `${info.name}, ${info.sys.country} ${currentCitySymbol}`;
+  todayInfo(info);
+}
+
+function displaySearchedCityInfo(response) {
+  if (document.getElementById("search-input").value !== "") {
+    addClassOnId("search-input", "is-valid");
+  }
+  let info = new Object();
+  info = response.data;
+  let city = document.getElementById("city-name");
+  city.innerHTML = `${response.data.name}, ${response.data.sys.country}`;
+  todayInfo(info);
+}
+
+function getCurrentPositionInfo(position) {
+  let urlCurrentLocation = getTodayUrlLatLong(
+    position.coords.latitude,
+    position.coords.longitude
+  );
+  //console.log(urlCurrentLocation);
+  axios.get(urlCurrentLocation).then(displayCurrentLocationInfo);
+}
+
+function getCityInfo(city) {
+  axios
+    .get(getTodayUrlCity(city))
+    .then(displaySearchedCityInfo)
+    .catch(function (error) { // handle error
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        //console.log(error.response.data);
+        addClassOnId("search-input", "is-invalid");
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        //console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        //console.log("Error", error.message);
+      }
+      //console.log(error.config);
+    });
+
+  axios.get(getForecastUrlCity(city)).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    if (error.response) {
+
+    }
+  });
+}
+
+getCityInfo(currentCity);
+/* 
+function getCity(url) {
+  axios.get(url).then(function(response) {
+    currentCity = [response.data.name, response.data.sys.country];
+  });
+}
+
+function getCurrentCity(position) {
+  let urlCurrentLocation = getTodayUrlLatLong(
+    position.coords.latitude,
+    position.coords.longitude
+  );
+  getCity(urlCurrentLocation);
+}
+
+navigator.geolocation.getCurrentPosition(getCurrentCity);
+navigator.geolocation.getCurrentPosition(getCurrentPositionInfo);
+*/
+
+
 
 ///////////////////////
 // Search Location
@@ -236,9 +259,9 @@ function search(event) {
 
   let searchCity =
     searchInput.value
-      .trim()
-      .charAt(0)
-      .toUpperCase() + searchInput.value.trim().slice(1);
+    .trim()
+    .charAt(0)
+    .toUpperCase() + searchInput.value.trim().slice(1);
 
   //console.log(`searchCity: ${searchCity}`);
 
@@ -260,19 +283,15 @@ searchForm.addEventListener("submit", search);
 function keyPressed(k) {
   let key = k.which || k.keyCode;
   //console.log(k.type, k.keyCode, k.which, k.key);
-  if (key === 13) {
-    // only if the key is "Enter"...
-    // ...ignore
-  } else {
+  if (key !== 13) {
     removeClassOnId("search-input", "is-invalid");
     removeClassOnId("search-input", "is-valid");
   }
-  // no propagation or default
 }
 
 let element = document.getElementById("search-input");
 element.addEventListener("keyup", keyPressed);
-element.addEventListener("click", function() {
+element.addEventListener("click", function () {
   removeClassOnId("search-input", "is-invalid");
   removeClassOnId("search-input", "is-valid");
 });
