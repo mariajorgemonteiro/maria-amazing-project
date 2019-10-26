@@ -357,6 +357,13 @@ function search(event) {
   //console.log(`searchCity: ${searchCity}`);
 
   //console.log(currentCity_);
+  if (variable_.innerHTML === "ºC") {
+    for (let i = 0; i < allVariables_.length; ++i) {
+      allVariables_[i].innerHTML = variable_.innerHTML;
+    }
+    variable_.innerHTML = "ºF";
+  }
+
 
   if (
     searchInput.value.toLowerCase().trim() === currentCity_[0].toLowerCase() ||
