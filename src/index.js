@@ -164,13 +164,11 @@ function getForecastUrlLatLong(latitude, longitude) {
 
 function getTodayUrlCity(city) {
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appKey_}&units=metric`;
-  //console.log(url);
   return url;
 }
 
 function getForecastUrlCity(city) {
   let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${appKey_}&units=metric`;
-  //console.log(url);
   return url;
 }
 
@@ -236,8 +234,6 @@ function displayForecastInfo(response) {
     }
   }
 
-  //console.log(forecastData);
-
   let tempArray = [];
   for (let a = 0; a < Object.keys(forecastData).length; a++) {
     let key = Object.keys(forecastData)[a];
@@ -268,7 +264,7 @@ function displayForecastInfo(response) {
         'icon': icon
       }
     };
-    tempArray.push(tempObj)
+    tempArray.push(tempObj);
   }
 
   for (let i = 1; i <= forecastDays_; i++) {
@@ -291,9 +287,7 @@ function getCurrentPositionInfo(position) {
     position.coords.longitude
   );
 
-  //console.log(urlCurrentLocation);
   axios.get(urlTodayCurrentLocation).then(displayTodayCurrentLocationInfo);
-
   axios.get(urlForecastCurrentLocation).then(displayForecastInfo);
 }
 
@@ -354,9 +348,6 @@ function search(event) {
     .charAt(0)
     .toUpperCase() + searchInput.value.trim().slice(1);
 
-  //console.log(`searchCity: ${searchCity}`);
-
-  //console.log(currentCity_);
   if (variable_.innerHTML === "ºC") {
     for (let i = 0; i < allVariables_.length; ++i) {
       allVariables_[i].innerHTML = variable_.innerHTML;
@@ -387,7 +378,6 @@ searchForm.addEventListener("submit", search);
 
 function keyPressed(k) {
   let key = k.which || k.keyCode;
-  //console.log(k.type, k.keyCode, k.which, k.key);
   if (key !== 13) {
     removeClassOnId("search-input", "is-invalid");
     removeClassOnId("search-input", "is-valid");
