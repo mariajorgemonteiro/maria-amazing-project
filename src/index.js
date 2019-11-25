@@ -142,7 +142,7 @@ function updateDates() {
     forecastDate.setHours(0, 0, 0, 0);
     document.getElementById(`day-${i}`).innerHTML = `${getForecastDay(forecastDate)}`;
 
-    dayUTC = new Date(forecastDate.toISOString());
+    let dayUTC = new Date(forecastDate.toISOString());
     dayUTC = `${dayUTC.getUTCFullYear()}-${dayUTC.getUTCMonth()+1}-${dayUTC.getUTCDate()} ${addZero(dayUTC.getUTCHours())}:${addZero(dayUTC.getUTCMinutes())}:${addZero(dayUTC.getUTCSeconds())}`;
     dayUTC = Date.parse(`${dayUTC}Z`) / 1000;
     daysUTCunix_.push(dayUTC);
